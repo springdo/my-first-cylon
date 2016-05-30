@@ -24,8 +24,8 @@ Cylon.robot({
   devices: {
     led: { driver: "led", pin: 7 }
   },
-  sayHello: function(name){
-    console.log("INFO - hello cylon "+name);
+  sayHello: function(obj){
+    console.log("INFO - hello cylon "+obj);
   },
 
   turnOff: function(){
