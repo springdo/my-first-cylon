@@ -24,13 +24,22 @@ Cylon.robot({
   devices: {
     led: { driver: "led", pin: 7 }
   },
+  sayHello: function(name){
+    console.log("INFO - hello cylon "+name);
+  },
 
-  turnOn: function(my){
-	  my.led.turnOn(function(err, val){
-		  console.log(err || val)
+  turnOff: function(){
+	  this.led.turnOff(function(err, val){
+		  console.log("INFO - turning off "+ err || val)
+	  });
+  },
+  turnOn: function(){
+	  this.led.turnOn(function(err, val){
+		  console.log("INFO - turning on "+ err || val)
 	  });
   },
   work: function(my) {
-    every((1).second(), my.led.toggle);
+    // every((1).second(), my.led.toggle);
+    my.turnOn();
   }
 }).start();
