@@ -40,11 +40,15 @@ Cylon.robot({
         var hueOn = '/api/robots/hue-bot/commands/turnOnLivingRoom';
         var hueOff = '/api/robots/hue-bot/commands/turnOffLivingRoom';
 
+        after((5).seconds(), function() {
+            return console.log("INFO - MCP Reporting for DUTY");
+        });
+
         // TODO - change to mqtt or something like that
-        every((4).second(), function() {
-            baseReq.get(photoLower, options, function(err, response, data){
-                if (data.result.lowerLimit){
-                    console.log('Analog lower value => ', data.result.val);
+        every((7).second(), function() {
+            baseReq.get(photoUpper, options, function(err, response, data){
+                if (data.result.upperLimit){
+                    console.log('MCP - Analog lower value => ', data.result.val);
                     // TODO - bring lights up gradually based on how dark it is....
                     var req = {
                         url : hueOn,
@@ -57,9 +61,9 @@ Cylon.robot({
                 }
             });
              //TODO - think of better way to turn lights off
-            request.get(photoUpper, options, function(err, response, data){
-                if (data.result.upperLimit){
-                    console.log('Analog upper value => ', data.result.val);
+            request.get(photoLower, options, function(err, response, data){
+                if (data.result.lowerLimit){
+                    console.log('MCP - Analog upper value => ', data.result.val);
                     request.get(hueOff, options, function(err, response, data){});
                 }
             });
