@@ -15,7 +15,7 @@ Cylon.robot({
     towerTop: { driver: 'hue-light', lightId: 6}
   },
 
-  turnOnLivingRoom : function(){
+  turnOnLivingRoom : function(data){
     this.aladdinLamp.turnOn();
     this.towerMiddle.turnOn();
     this.couch.turnOn();

@@ -7,7 +7,7 @@ Cylon.robot({
   },
 
   devices: {
-    photoresistor: { driver: 'analog-sensor', pin: 0, lowerLimit: 50, upperLimit: 120 }
+    photoresistor: { driver: 'analog-sensor', pin: 0, lowerLimit: 50, upperLimit: 70 }
   },
 
   // can probably use analog_read on the REST interface

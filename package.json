@@ -9,6 +9,7 @@
     "cylon-firmata": "^0.24.0",
     "cylon-gpio": "^0.29.0",
     "cylon-i2c": "^0.26.1",
+    "cylon-mqtt": "^0.8.0",
     "cylon-raspi": "^0.20.1",
     "pi-gpio": "0.0.8",
     "request": "^2.72.0"
