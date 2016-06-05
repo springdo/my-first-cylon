@@ -9,7 +9,7 @@ Cylon.api("http", {
     host: '127.0.0.1',
     port: '8443',
     auth: {
-          type: 'basic',
+      type: 'basic',
       user: 'admin',
       pass: 'pass'
     }
@@ -38,6 +38,8 @@ Cylon.robot({
             'strictSSL': false,
             'json': true
         };
+
+
         every((5).second(), function() {
             request.get(photoLower, options, function(err, response, data){
                 if (data.result.lowerLimit){

@@ -29,10 +29,10 @@ Cylon.robot({
   work: function(my) {
     //var analogValue = 0;
     //
-    every((1).second(), function() {
-      analogValue = my.photoresistor.analogRead();
-      console.log('Analog value => ', analogValue);
-    });
+    //every((1).second(), function() {
+    //  analogValue = my.photoresistor.analogRead();
+    //  console.log('Analog value => ', analogValue);
+    //});
     //
     //my.photoresistor.on('lowerLimit', function(val) {
     //  console.log("Lower limit reached!");
