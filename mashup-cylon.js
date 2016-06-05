@@ -48,7 +48,7 @@ Cylon.robot({
         every((7).second(), function() {
             baseReq.get(photoUpper, options, function(err, response, data){
                 if (data.result.upperLimit){
-                    console.log('MCP - Analog lower value => ', data.result.val);
+                    console.log('MCP - Analog Upper value => ', data.result.val);
                     // TODO - bring lights up gradually based on how dark it is....
                     var req = {
                         url : hueOn,
@@ -63,7 +63,7 @@ Cylon.robot({
              //TODO - think of better way to turn lights off
             request.get(photoLower, options, function(err, response, data){
                 if (data.result.lowerLimit){
-                    console.log('MCP - Analog upper value => ', data.result.val);
+                    console.log('MCP - Analog Lower value => ', data.result.val);
                     request.get(hueOff, options, function(err, response, data){});
                 }
             });
