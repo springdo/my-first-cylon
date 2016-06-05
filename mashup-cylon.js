@@ -1,6 +1,18 @@
 var Cylon = require('cylon');
 var request = require('request');
 
+var options = {
+    'baseUrl': 'https://127.0.0.1:8443',
+    'auth': {
+        'user': 'admin',
+        'pass': 'pass'
+    },
+    'strictSSL': false,
+    'json': true
+};
+var baseReq = request.defaults(options);
+
+
 //bring in my other Cylons
 var hue = require('./hue.js');
 var photosense = require('./photosense.js');
@@ -15,9 +27,7 @@ Cylon.api("http", {
     }
 });
 
-// my mcp
-// curl -k -H 'Authorization: Basic YWRtaW46cGFzcw==' https://127.0.0.1:8443/api/robots/photosense-bot/devices/sensor/events/lowerLimit
-var Cylon = require('cylon');
+
 
 Cylon.robot({
     name: 'mashup-cylon',
@@ -25,28 +35,28 @@ Cylon.robot({
     devices: {},
 
     work: function(my) {
-        var url = 'https://127.0.0.1:8443';
-        var photoLower = url+'/api/robots/photosense-bot/commands/checkLowerLimit';
-        var photoUpper = url+'/api/robots/photosense-bot/commands/checkUpperLimit';
-        var hueOn = url+'/api/robots/hue-bot/commands/turnOnLivingRoom';
-        var hueOff = url+'/api/robots/hue-bot/commands/turnOffLivingRoom';
-        var options = {
-            'auth': {
-                'user': 'admin',
-                'pass': 'pass'
-            },
-            'strictSSL': false,
-            'json': true
-        };
+        var photoLower = '/api/robots/photosense-bot/commands/checkLowerLimit';
+        var photoUpper = '/api/robots/photosense-bot/commands/checkUpperLimit';
+        var hueOn = '/api/robots/hue-bot/commands/turnOnLivingRoom';
+        var hueOff = '/api/robots/hue-bot/commands/turnOffLivingRoom';
 
-
-        every((5).second(), function() {
-            request.get(photoLower, options, function(err, response, data){
+        // TODO - change to mqtt or something like that
+        every((4).second(), function() {
+            baseReq.get(photoLower, options, function(err, response, data){
                 if (data.result.lowerLimit){
                     console.log('Analog lower value => ', data.result.val);
-                    request.get(hueOn, options, function(err, response, data){});
+                    // TODO - bring lights up gradually based on how dark it is....
+                    var req = {
+                        url : hueOn,
+                        body : data.result,
+                        method : 'post'
+                    };
+                    baseReq(req, function(err, response, data){
+                        if (err) console.log(err)
+                    });
                 }
             });
+             //TODO - think of better way to turn lights off
             request.get(photoUpper, options, function(err, response, data){
                 if (data.result.upperLimit){
                     console.log('Analog upper value => ', data.result.val);

@@ -12,7 +12,9 @@
     "cylon-mqtt": "^0.8.0",
     "cylon-raspi": "^0.20.1",
     "pi-gpio": "0.0.8",
-    "request": "^2.72.0"
+    "playmusic": "^2.1.1",
+    "request": "^2.72.0",
+    "stream-player": "0.2.0"
   },
   "devDependencies": {},
   "scripts": {
