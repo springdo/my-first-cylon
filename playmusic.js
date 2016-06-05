@@ -24,8 +24,11 @@ pm.init({ androidId: auth.androidId, masterToken: auth.masterToken}, function(er
                 //request.get(songUrl).pipe(speaker);
                 // Add a song url to the queue
                 player.add(songUrl);
+                // DIRTY Hack but I can't seem to catch the exection thrown by the event inside of Player
+                process.on('uncaughtException', function (err) {
+                    console.log(err);
+                });
                 player.play();
-
             });
         });
     }
